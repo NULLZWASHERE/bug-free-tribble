@@ -4,11 +4,11 @@ import json
 
 class handler(BaseHTTPRequestHandler):
     def do_GET(self):
-        # This lets you test if the API is online by just visiting the URL in your browser
-        self.send_response(200)
+        # Block GET requests so browsing to the URL doesn't waste your API key
+        self.send_response(405)
         self.send_header("Content-type", "text/plain")
         self.end_headers()
-        self.wfile.write("Proxy is online! Send a POST request.".encode('utf-8'))
+        self.wfile.write("Method Not Allowed. Use POST.".encode('utf-8'))
 
     def do_OPTIONS(self):
         # Handles CORS preflight requests from browsers
@@ -19,7 +19,7 @@ class handler(BaseHTTPRequestHandler):
         self.end_headers()
 
     def do_POST(self):
-        # 1. Handle CORS headers right away
+        # 1. Handle CORS and headers right away
         self.send_response(200)
         self.send_header("Access-Control-Allow-Origin", "*")
         self.send_header("Content-type", "text/plain")
@@ -57,7 +57,8 @@ class handler(BaseHTTPRequestHandler):
         headers = {
             "Content-Type": "application/json",
             "Accept": "text/event-stream",
-            "Authorization": "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"
+            # FIX: Added 'Bearer ' prefix as required by NVIDIA's strict axum framework
+            "Authorization": "Bearer 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"
         }
 
         url = "https://integrate.api.nvidia.com/v1/chat/completions"
