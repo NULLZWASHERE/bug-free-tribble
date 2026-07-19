@@ -47,7 +47,7 @@ class handler(BaseHTTPRequestHandler):
             "max_tokens": 26384,
             "seed": 42,
             "chat_template_kwargs": {
-                "enable_thinking": True,
+                "enable_thinking": false,
                 "clear_thinking": True
             },
             "stream": True
