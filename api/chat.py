@@ -48,7 +48,7 @@ class handler(BaseHTTPRequestHandler):
             "seed": 42,
             "chat_template_kwargs": {
                 "enable_thinking": True,
-                "clear_thinking": false
+                "clear_thinking": False
             },
             "stream": True
         }
