@@ -44,10 +44,10 @@ class handler(BaseHTTPRequestHandler):
             "messages": [{"content": text_input, "role": "user"}],
             "temperature": 1,
             "top_p": 1,
-            "max_tokens": 16384,
+            "max_tokens": 26384,
             "seed": 42,
             "chat_template_kwargs": {
-                "enable_thinking": False,
+                "enable_thinking": True,
                 "clear_thinking": True
             },
             "stream": True
