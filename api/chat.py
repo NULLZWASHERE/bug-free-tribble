@@ -38,6 +38,7 @@ class handler(BaseHTTPRequestHandler):
         text_input = client_payload.get("text", "the text")
         
         # 3. Construct the payload for the NVIDIA API
+        # (Moved chat_template_kwargs to the root level because we are not using the openai SDK)
         nvidia_payload = {
             "model": "z-ai/glm-5.2",
             "messages": [{"content": text_input, "role": "user"}],
@@ -45,11 +46,9 @@ class handler(BaseHTTPRequestHandler):
             "top_p": 1,
             "max_tokens": 16384,
             "seed": 42,
-            "extra_body": {
-                "chat_template_kwargs": {
-                    "enable_thinking": False,
-                    "clear_thinking": True
-                }
+            "chat_template_kwargs": {
+                "enable_thinking": False,
+                "clear_thinking": True
             },
             "stream": True
         }
@@ -57,7 +56,7 @@ class handler(BaseHTTPRequestHandler):
         headers = {
             "Content-Type": "application/json",
             "Accept": "text/event-stream",
-            # FIX: Added 'Bearer ' prefix as required by NVIDIA's strict axum framework
+            # Added 'Bearer ' prefix as required by NVIDIA's strict authorization parser
             "Authorization": "Bearer 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"
         }
 
